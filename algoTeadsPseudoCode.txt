@@ -1,0 +1,55 @@
+// ALGO de plus court centre réseau
+
+a_toutes_les_couleurs(noeud N, ensC[]):
+	pour chaque couleur C de ensC:
+		si N[C] n'est pas défini :
+			retourner faux
+	retourner vrai
+
+couleur_max(N):
+	couleur_maximale <- rien
+	pour chaque couleur C de N:
+		si N[C] > N[couleur_maximale]:
+			couleur_maximale <- C
+	retourner (couleur_maximale, N[couleur_maximale])
+	
+feuilles_de(graph G):
+	feuilles <- []
+	pour chaque noeud N de G:
+		si taille(voisins(N)) == 1:
+			feuilles[] <- N
+	retourner feuilles
+
+trouver_voisin_couleur(noeud N, couleur C):
+	pour chaque noeud V de voisins(N):
+		si V[C] est défini:
+			retourner V
+	retourner non défini
+
+initialiser_feuilles(graph G, ensC[]):
+	pour chaque noeud N de feuilles_de(G):
+		N[C] <- 0
+		ensC[] <- nouvelle couleur
+	
+etendre_les_couleurs_voisines(noeud N, ensc[]):
+	pour chaque couleur C de ensC:
+		si N[C] n'est pas défini:
+			V <- trouver_voisin_couleur(N, C)
+			si V est défini:
+				N[C] <- V[C]+1
+	
+etendre_et_trouver_toutes_les_couleurs(graph G, ensC[]):
+	pour etape de 1 à taille(noeuds(G))-1:
+		pour chaque noeud N de G:
+			etendre_les_couleurs_voisines()
+			si a_toutes_les_couleurs(N, ensC):
+				retourner (N, couleur_max(N))
+	retourner non défini
+	
+trouver_centre(graphe G):
+	ensC <- []
+
+	initialiser_feuilles(G, ensC)
+	res <- etendre_et_trouver_toutes_les_couleurs(G, ensC)
+	
+	retourner res
