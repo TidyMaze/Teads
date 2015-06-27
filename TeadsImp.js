@@ -169,8 +169,12 @@ function Graph() {
         return allVertices;
     };
 
-    
-
+    this.findLeafs = function(){
+        var graph = this;
+        return this.findAllVertices().filter(function(vertex){
+            return Object.keys(graph.findReachableNeighbors(vertex)).length == 1;
+        });
+    }
 }
 
 /**
@@ -280,9 +284,7 @@ function couleur_max(N, colorsState){
 }
 
 function feuilles_de(G){
-    return G.findAllVertices().filter(function(vertex){
-        return Object.keys(G.findReachableNeighbors(vertex)).length == 1;
-    });
+    return G.findLeafs();
 }
 
 function trouver_voisin_couleur(G, N, C, colorsState){
