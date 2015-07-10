@@ -129,7 +129,7 @@ function Graph() {
      * Finds the cost of transition between two vertices (if exists)
      * @param from starting vertex
      * @param to destination vertex
-     * @return the cost {Number} or Number.POSITIVE_INFINITY
+     * @return Number cost {Number} or Number.POSITIVE_INFINITY
      */
     this.findCost = function (from, to) {
         var filtered = this.edges.filter(function(e){
